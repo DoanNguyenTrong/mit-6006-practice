@@ -15,7 +15,6 @@ AVLtree<T>::AVLtree(){
     root_ = NULL;
 }
 
-
 template <class T>
 int AVLtree<T>::height(AVLNode<T> *n){
     if (n == NULL){
@@ -170,4 +169,98 @@ void AVLtree<T>::inorderTreeWalk(){
     AVLNode<T> *x = root_;
     treeTraversal(x);
     std::cout << " END\n";
+}
+
+
+template <class T>
+void AVLtree<T>::transplant(AVLNode<T> *root, AVLNode<T> *u, AVLNode<T> *v){
+    if(u->parent_ == NULL){
+        root = v;
+    }
+    else if(u == u->parent_->left_){
+        u->parent_->left_ = v;
+    }
+    else{
+        u->parent_->right_ = v;
+    }
+    if (v != NULL){
+        v->parent_ = u->parent_;
+    }
+}
+template <class T>
+AVLNode<T> *AVLtree<T>::treeMin(AVLNode<T> *n){
+    while (n->left_ != NULL){
+        n = n->left_;
+    }
+    return n;
+}
+template <class T>
+AVLNode<T> *AVLtree<T>::treeMax(AVLNode<T> *n){
+    while (n->right_ != NULL){
+        n = n->right_;
+    }
+    return n;
+}
+
+
+template <class T>
+void AVLtree<T>::treeDelete(AVLNode<T> *z){
+    if (z->left_ == NULL){
+        transplant(root_, z, z->right_);
+        // reBalance from parent of z
+        if (z->parent_ != NULL){
+            reBalance(z->parent_);
+        }
+    }
+    else if (z->right_ == NULL){
+        transplant(root_, z, z->left_);
+        // reBalance from parent of z
+        if (z->parent_ != NULL){
+            reBalance(z->parent_);
+        }
+    }
+    else{
+        AVLNode<T> *y = treeMin(z->right_);
+        AVLNode<T> *parent_y = y->parent_;
+        if (y != z->right_){
+            transplant(root_, y, y->right_);
+            y->right_ = z->right_;
+            y->right_->parent_ = y;
+        }
+        transplant(root_, z, y);
+        y->left_ = z->left_;
+        y->left_->parent_ = y;
+
+        // reBalance from parent of the min Node of (z's right child)
+        if (parent_y != NULL){
+            reBalance(parent_y);
+        }
+    }
+    // Delete z to avoid memory leak
+    delete z;
+}
+template <class T>
+AVLNode<T> *AVLtree<T>::treeSearch(AVLNode<T> *r, T key){
+    if (r == NULL || r->key_ == key){
+        return r;
+    }
+    if(r->key_ > key){
+        return treeSearch(r->left_, key);
+    }
+    else{
+        return treeSearch(r->right_, key);
+    }
+}
+template <class T>
+void AVLtree<T>::treeDeletePrint(T key){
+    std::cout << "\nAVL Delete: " << key << "\n";
+    AVLNode<T> *position = treeSearch(root_, key);
+    if (position == NULL){
+        std::cout << "You key does not in the BST\n";
+    }
+    else{
+        // treeDelete(position);
+        treeDelete(position);
+        inorderTreeWalk();
+    }
 }

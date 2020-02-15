@@ -1,3 +1,12 @@
+// // -----------------------------------------------------------
+// //                       STRUCTURE
+// // - Constructor/Destructor
+// // - insertion Sort
+// // - merge Sort
+// // - heap Sort
+// // - main 
+// // -----------------------------------------------------------
+
 #include <iostream>
 
 #include "array_sort.h"
@@ -7,31 +16,46 @@
 #define LEFT_CHILD(i) (2*i)
 #define RIGHT_CHILD(i)(2*i+1)
 
-
-Search::Search(int arr[], const int N): N_(N){
-     std::copy(arr, arr + N, arr_);
+template <class T>
+ArraySort<T>::ArraySort(T *arr, const int N):N_(N){
+     arr_ = new T[N_];
+     for (int i = 0; i < N_; i++){
+          arr_[i] = arr[i];
+     }
 }
 
-void Search::printArray(){
+template <class T>
+ArraySort<T>::~ArraySort(){
+     delete arr_;
+}
+
+
+template <class T>
+void ArraySort<T>::printArray(){
      std::cout << "Print Array     " << std::endl;
      for (int i= 0; i < N_; i++){
           std::cout << i << ": " << arr_[i] << "\n";
      }
      std::cout << std::endl;
 }
-// -----------------------------------------------------------
-//                       INSERTION SORT
-// -----------------------------------------------------------
-void Search::swap(int i, int j){
-     int temp = arr_[i];
+
+
+// // -----------------------------------------------------------
+// //                       INSERTION SORT
+// // -----------------------------------------------------------
+
+template <class T>
+void ArraySort<T>::swap(T i, T j){
+     T temp = arr_[i];
      arr_[i] = arr_[j];
      arr_[j] = temp;
 }
 
 // Complexity: O(n^2)
-void Search::insertionSort(){
+template <class T>
+void ArraySort<T>::insertionSort(){
      for(int i=1; i < N_; i++){
-          int key = arr_[i];
+          T key = arr_[i];
           int j = i - 1;
           // Pop the items before have index i down to make room for it
           while(j >= 0 && arr_[j] > key){
@@ -42,16 +66,18 @@ void Search::insertionSort(){
           arr_[j+1] = key;
      }
 }
-// -----------------------------------------------------------
-//                       MERGE SORT
-// -----------------------------------------------------------
-void Search::merge(int l, int m, int r){
+
+// // -----------------------------------------------------------
+// //                       MERGE SORT
+// // -----------------------------------------------------------
+template <class T>
+void ArraySort<T>::merge(int l, int m, int r){
      // Length of two arrays
      int n1 = m - l + 1;
      int n2 = r - m;
 
      // Create temp arrays and copy data to that array
-     int L[n1], R[n2];
+     T L[n1], R[n2];
      for (int i = 0; i < n1; i++){
           L[i] = arr_[l + i];
      }
@@ -84,7 +110,9 @@ void Search::merge(int l, int m, int r){
           j++;
      }
 }
-void Search::merge_sort(int l, int r){
+
+template <class T>
+void ArraySort<T>::merge_sort(int l, int r){
      if (l < r){
           int m = l + (r - l)/2;
           merge_sort(l, m);
@@ -94,14 +122,16 @@ void Search::merge_sort(int l, int r){
 }
 
 // Complexity: O(n.logn)
-void Search::mergeSort(){
+template <class T>
+void ArraySort<T>::mergeSort(){
      merge_sort(0, N_);
 }
 
-// -----------------------------------------------------------
-//                       HEAP SORT
-// -----------------------------------------------------------
-void Search::maxHeapify(int i, int heap_size){
+// // -----------------------------------------------------------
+// //                       HEAP SORT
+// // -----------------------------------------------------------
+template <class T>
+void ArraySort<T>::maxHeapify(int i, int heap_size){
      int l = LEFT_CHILD(i);
      int r = RIGHT_CHILD(i);
      int largest = i;
@@ -116,15 +146,16 @@ void Search::maxHeapify(int i, int heap_size){
           maxHeapify(largest, heap_size);
      }
 }
-
-void Search::buildMaxHeap(){
+template <class T>
+void ArraySort<T>::buildMaxHeap(){
      for (int i = N_/2; 0 <= i; i--){
           maxHeapify(i, N_);
      }
 }
 // Complexity: O(n.logn)
 // Combine the advantage of insertion + merge sorts
-void Search::heapSort(){
+template <class T>
+void ArraySort<T>::heapSort(){
      buildMaxHeap();
      int heap_size = N_;
      for (int i = N_ - 1; 0 < i; i--){
@@ -135,3 +166,20 @@ void Search::heapSort(){
           maxHeapify(0, heap_size);
      }
 }
+
+// // -----------------------------------------------------------
+// //                       MAIN
+// // -----------------------------------------------------------
+
+void array_sort(int arr[],const int N){
+     ArraySort<int> S(arr, N);
+     // S.printArray();
+     // S.insertionSort();
+     // S.mergeSort();
+     S.heapSort();
+     S.printArray();
+}
+
+
+//   AVOID linker error in template class
+template class ArraySort<int>;
