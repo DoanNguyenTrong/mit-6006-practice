@@ -2,46 +2,41 @@
 #define AVL_TREE_
 
 #include <iostream>
+
 #include "binary_search_tree.h"
 
+// AVLNode cannot inherit from Node (BStree)
+// Node in BStree points to Node, not AVL node
+// This will lead to incorrect operations
 template <class T>
-struct AVLNode:Node{
-    // T key_; 
+struct AVLNode{
+    T key_; 
     int balance_;
-    // AVLNode *left_, *right_, *parent_;
+    AVLNode *left_, *right_, *parent_;
 };
 
-template <class T>
-class AVLtree : BStree{
-    // public:
 
-    // void treeInsert(AVLNode<T> *);
-    // void treeDelete(AVLNode<T> *);
-    // void inorderTreeWalk();
-    // void ballancePrint();
-    // void treeDeletePrint(T);
+template <class T, typename Node_>
+class AVLtree : public BStree<T, Node_>{
+    public:
+    AVLtree();
+    // void makeTreeFromArr(T [], int);
+    
+    protected:
+    // Node_ *root_; // ?????
+    Node_ *newNode(T);
 
-    // AVLtree();
-    // ~AVLtree();
-    // private:
-    // AVLNode<T> *root_;
-
-    // void rotateLeft(AVLNode<T> *x);
-    // void rotateRight(AVLNode<T> *y);
-    // void rotateLeftThenRight(AVLNode<T> *n);
-    // void rotateRightThenLeft(AVLNode<T> *n);
-
-    // int height(AVLNode<T> *n);
-    // void setBalance(AVLNode<T> *n);
-    // void reBalance(AVLNode<T> *n);
-
-    // AVLNode<T> *treeMin(AVLNode<T> *);
-    // AVLNode<T> *treeMax(AVLNode<T> *);
-
-    // AVLNode<T> * treeSearch(AVLNode<T> *, T);
-    // void treeTraversal(AVLNode<T> *);
-
-    // void transplant(AVLNode<T> *, AVLNode<T> *, AVLNode<T> *);
+    // Unique of AVL tree to balancing the tree
+    int height(Node_ *);
+    void setBalance(Node_ *);
+    void rotateLeft(Node_ *x);
+    void rotateRight(Node_ *y);
+    void rotateLeftThenRight(Node_ *n);
+    void rotateRightThenLeft(Node_ *n);
+    void reBalance(Node_ *);
+    void treeInsert(Node_ *);
+    // need re-balance after delete a node
+    void treeDelete( Node_ *);
 };
 
 #endif // AVL_TREE_

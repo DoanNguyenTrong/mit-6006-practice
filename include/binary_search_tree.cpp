@@ -11,10 +11,12 @@
 
 #include "binary_search_tree.h"
 
+
 // Constructor
 template <class T, typename Node_>
 BStree<T, Node_>::BStree(){
     root_ = NULL;
+    std::cout << "BStree's constructor called: " << root_ << std::endl;
 }
 
 // // --------------------------------------------------
@@ -56,6 +58,7 @@ void BStree<T, Node_>::treeInsert(Node_ *z){
         y->right_ = z;
     }
 }
+
 template <class T, typename Node_>
 void BStree<T, Node_>::makeTreeFromArr(T arr[], int N){\
     for (int i = 0; i < N; i++){
@@ -278,3 +281,4 @@ void binary_search(int arr[], int N){
 
 //   AVOID linker error in template class
 template class BStree<int, Node<int> >;
+// template class BStree<int, AVLNode<int> >;

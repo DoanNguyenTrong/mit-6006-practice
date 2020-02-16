@@ -1,6 +1,8 @@
 #ifndef BINARY_SEARCH_TREE_
 #define BINARY_SEARCH_TREE_
 
+// #include "avl_tree.h"
+
 template <class T>
 struct Node
 {
@@ -19,11 +21,11 @@ class BStree{
     void treePredesPrint(T);
     void treeDeletePrint(T);
 
-    private:
+    protected:
     Node_ *root_;
     // Make tree
     Node_ *newNode(T);
-    void treeInsert(Node_ *);
+    virtual void treeInsert(Node_ *);
     // print ordered
     void inorder(Node_ *);
     // Search for a key
@@ -36,9 +38,7 @@ class BStree{
     Node_ *treePredecessor(Node_ *);
     // Delete
     void transplant(Node_ *, Node_ *);
-    void treeDelete(Node_ *);
-
-    
+    virtual void treeDelete(Node_ *);
 };
 
 

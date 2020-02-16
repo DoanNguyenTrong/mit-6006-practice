@@ -15,7 +15,7 @@ If you are the one who need to write code at some point in your life and you wan
 
 1. Cormen, Thomas, Charles Leiserson, Ronald Rivest, and Clifford Stein. **Introduction to Algorithms**. 3rd ed. MIT Press, 2009. ISBN: 9780262033848.
 
-## Sorting and Trees
+## A. Sorting and Trees
 ### Array Sort
 - insertionSort()
     - Data is stored in an array
@@ -30,6 +30,7 @@ If you are the one who need to write code at some point in your life and you wan
 
 
 ### Tree Sort
+
 - Binary Search Tree
     - treeInsert()/treeDelete()
     - treeMin()/treeMax()
@@ -37,8 +38,11 @@ If you are the one who need to write code at some point in your life and you wan
     - treeSuccessor()/treePredeccessor()
 
 - AVL tree
-    - inherited from Binary Search Tree (I used `template` so that I dont need to write it all from scratch)
+    - inherited from Binary Search Tree (`template` is used so that we dont need to write it all from scratch)
     - Balancing the BST: treeLeftRotate()/treeRightRotate()
+    - The tree needs to be re-balance after insert/delete a node
 
-## Search
+*(Red-Black tree is less intuitive so be ignored in the middle, the code is incompleted)*
+
+## B. Search
 
