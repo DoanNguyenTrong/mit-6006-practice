@@ -5,10 +5,6 @@
 // #include "include/avl_tree.cpp"
 
 
-// void array_sort(int [],const int );
-
-// void binary_search(int [], const int);
-
 // void avl_tree_search(int arr[], const int N){
 //     std::cout << "AVL tree\n";
 //     AVLtree<int> t;

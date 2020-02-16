@@ -12,8 +12,8 @@
 #include "binary_search_tree.h"
 
 // Constructor
-template <class T>
-BStree<T>::BStree(){
+template <class T, typename Node_>
+BStree<T, Node_>::BStree(){
     root_ = NULL;
 }
 
@@ -22,18 +22,18 @@ BStree<T>::BStree(){
 // // --------------------------------------------------
 
 // Create a new BST Node
-template <class T>
-Node<T> *BStree<T>::newNode (T key){
-    Node<T> *temp = new Node<T>;
+template <class T, typename Node_>
+Node_ *BStree<T, Node_>::newNode (T key){
+    Node_ *temp = new Node_;
     temp->key_ = key;
     temp->left_ =temp->right_ = temp->parent_ = NULL;
     return temp;
 }
 // Insert a Node to the BST
-template <class T>
-void BStree<T>::treeInsert(Node<T> *z){
-    Node<T> *y = NULL;
-    Node<T> *x = root_;
+template <class T, typename Node_>
+void BStree<T, Node_>::treeInsert(Node_ *z){
+    Node_ *y = NULL;
+    Node_ *x = root_;
     // Travel throght the BST down to the leaf that associated with new node z
     while (x != NULL){
         y = x;
@@ -56,10 +56,10 @@ void BStree<T>::treeInsert(Node<T> *z){
         y->right_ = z;
     }
 }
-template <class T>
-void BStree<T>::makeTreeFromArr(T arr[], int N){\
+template <class T, typename Node_>
+void BStree<T, Node_>::makeTreeFromArr(T arr[], int N){\
     for (int i = 0; i < N; i++){
-        Node<T> *temp = newNode(arr[i]);
+        Node_ *temp = newNode(arr[i]);
         treeInsert(temp);
     }
 }
@@ -67,8 +67,8 @@ void BStree<T>::makeTreeFromArr(T arr[], int N){\
 // // --------------------------------------------------
 //          Tree travesal and print in sorted order
 // // --------------------------------------------------
-template <class T>
-void BStree<T>::inorder(Node<T> *root){
+template <class T, typename Node_>
+void BStree<T, Node_>::inorder(Node_ *root){
     if (root != NULL){
         inorder(root->left_);
         std::cout << root->key_ << " ";
@@ -76,8 +76,8 @@ void BStree<T>::inorder(Node<T> *root){
     }
 }
 
-template <class T>
-void BStree<T>::inorderTreeWalk (){
+template <class T, typename Node_>
+void BStree<T, Node_>::inorderTreeWalk (){
     inorder(root_);
 }
 
@@ -85,8 +85,8 @@ void BStree<T>::inorderTreeWalk (){
 // --------------------------------------------------
 //          3. Tree travesal and searh for a key
 // // --------------------------------------------------
-template <class T>
-Node<T> *BStree<T>::treeSearch (Node<T> *root, T key){
+template <class T, typename Node_>
+Node_ *BStree<T, Node_>::treeSearch (Node_ *root, T key){
     if (root == NULL || root->key_ == key){
         // if (root->key_ == key){
         //     std::cout << "---" << root->key_ << ":" << key << "--";
@@ -102,10 +102,10 @@ Node<T> *BStree<T>::treeSearch (Node<T> *root, T key){
 }
 
 // Search throgh the BST to find whether the key is founded?
-template <class T>
-void BStree<T>::treeSearchPrint(T key){
+template <class T, typename Node_>
+void BStree<T, Node_>::treeSearchPrint(T key){
     std::cout << "\nSearch " << key << ": ";
-    Node<T> *pos = treeSearch(root_, key);
+    Node_ *pos = treeSearch(root_, key);
     if (pos != NULL){
         std::cout << "Founded!";
     }
@@ -117,16 +117,16 @@ void BStree<T>::treeSearchPrint(T key){
 // // --------------------------------------------------
 // // 4. Tree Minimum and Maximum
 // // --------------------------------------------------
-template <class T>
-Node<T> *BStree<T>::treeMin(Node<T> *root){
+template <class T, typename Node_>
+Node_ *BStree<T, Node_>::treeMin(Node_ *root){
     while (root->left_ != NULL){
         root = root->left_;
     }
     return root;
 }
 
-template <class T>
-Node<T> *BStree<T>::treeMax(Node<T> *root){
+template <class T, typename Node_>
+Node_ *BStree<T, Node_>::treeMax(Node_ *root){
     while (root->right_ != NULL){
         root = root->right_;
     }
@@ -138,14 +138,14 @@ Node<T> *BStree<T>::treeMax(Node<T> *root){
 // // --------------------------------------------------
 // // successor of a node x is the node with
 // // the smallest key greater than x:key
-template <class T>
-Node<T> *BStree<T>::treeSuccessor(Node<T> *position){
+template <class T, typename Node_>
+Node_ *BStree<T, Node_>::treeSuccessor(Node_ *position){
     if (position->right_ != NULL){
         return treeMin(position->right_);
     }
     else{
-        Node<T> *curr = position;
-        Node<T> *par = curr->parent_;
+        Node_ *curr = position;
+        Node_ *par = curr->parent_;
         while (par != NULL && par->right_ == curr){
             curr = par;
             par = curr->parent_;
@@ -154,15 +154,15 @@ Node<T> *BStree<T>::treeSuccessor(Node<T> *position){
     }
 }   
 
-template <class T>
-void BStree<T>::treeSuccPrint(T key){
+template <class T, typename Node_>
+void BStree<T, Node_>::treeSuccPrint(T key){
     std::cout << "\nSuccessor of " << key << ": ";
-    Node<T> *pos = treeSearch(root_, key);
+    Node_ *pos = treeSearch(root_, key);
     if (pos == NULL){
         std::cout << "You key does not in the BST\n";
     }
     else{
-        Node<T> *succ = treeSuccessor(pos);
+        Node_ *succ = treeSuccessor(pos);
         std::cout << " Successor value: " << succ->key_ << "\n";
     }
 }
@@ -170,14 +170,14 @@ void BStree<T>::treeSuccPrint(T key){
 
 // // Predeccessor of a node x is the node with
 // // the greatest key smaller than x:key
-template <class T>
-Node<T> *BStree<T>::treePredecessor(Node<T> *position){
+template <class T, typename Node_>
+Node_ *BStree<T, Node_>::treePredecessor(Node_ *position){
     if (position->left_ != NULL){
         return treeMax(position->left_);
     }
     else{
-        Node<T> *curr = position;
-        Node<T> *par = curr->parent_;
+        Node_ *curr = position;
+        Node_ *par = curr->parent_;
         while (par != NULL && curr == par->left_){
             curr = par;
             par = curr->parent_;
@@ -186,15 +186,15 @@ Node<T> *BStree<T>::treePredecessor(Node<T> *position){
     }
 }
 
-template <class T>
-void BStree<T>::treePredesPrint(T key){
+template <class T, typename Node_>
+void BStree<T, Node_>::treePredesPrint(T key){
     std::cout << "\nPredeccessor of " << key << ": ";
-    Node<T> *position = treeSearch(root_, key);
+    Node_ *position = treeSearch(root_, key);
     if (position == NULL){
         std::cout << "You key does not in the BST\n";
     }
     else{
-        Node<T> *predes = treePredecessor(position);
+        Node_ *predes = treePredecessor(position);
         std::cout << " Predeccessor value: " << predes->key_ << "\n";
     }
 }
@@ -206,8 +206,8 @@ void BStree<T>::treePredesPrint(T key){
 // and v
 // u->parent->child = v
 // v->parent = u->parent
-template <class T>
-void BStree<T>::transplant(Node<T> *u, Node<T> *v){
+template <class T, typename Node_>
+void BStree<T, Node_>::transplant(Node_ *u, Node_ *v){
     if (u->parent_ == NULL){
         root_ = v;
     }
@@ -222,8 +222,8 @@ void BStree<T>::transplant(Node<T> *u, Node<T> *v){
     }
 }
 
-template <class T>
-void BStree<T>::treeDelete(Node<T> *z){
+template <class T, typename Node_>
+void BStree<T, Node_>::treeDelete(Node_ *z){
     if (z->left_ == NULL){
         transplant(z, z->right_);
     }
@@ -231,7 +231,7 @@ void BStree<T>::treeDelete(Node<T> *z){
         transplant(z, z->left_);
     }
     else{
-        Node<T> *y = treeMin(z->right_);
+        Node_ *y = treeMin(z->right_);
         if (y != z->right_){
             transplant(y, y->right_);
             y->right_ = z->right_;
@@ -244,10 +244,10 @@ void BStree<T>::treeDelete(Node<T> *z){
     delete z;
 }
 
-template <class T>
-void BStree<T>::treeDeletePrint(T key){
+template <class T, typename Node_>
+void BStree<T, Node_>::treeDeletePrint(T key){
     std::cout << "\nDelete: " << key << "\n";
-    Node<T> *position = treeSearch(root_, key);
+    Node_ *position = treeSearch(root_, key);
     if (position == NULL){
         std::cout << "You key does not in the BST\n";
     }
@@ -259,11 +259,11 @@ void BStree<T>::treeDeletePrint(T key){
 }
 
 // --------------------------------------------------
-//           Delete a Node from the tree
+//           Main function
 // --------------------------------------------------
 
 void binary_search(int arr[], int N){
-    BStree<int> tree;
+    BStree<int, Node<int> > tree;
     tree.makeTreeFromArr(arr, N);
     
     std::cout << "Tree travesal: ";
@@ -277,4 +277,4 @@ void binary_search(int arr[], int N){
 }
 
 //   AVOID linker error in template class
-template class BStree<int>;
+template class BStree<int, Node<int> >;

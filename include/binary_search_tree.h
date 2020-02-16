@@ -8,7 +8,7 @@ struct Node
     Node *left_, *right_, *parent_;
 };
 
-template <class T>
+template <class T, typename Node_>
 class BStree{
     public:
     BStree();
@@ -20,25 +20,26 @@ class BStree{
     void treeDeletePrint(T);
 
     private:
-    Node<T> *root_;
+    Node_ *root_;
     // Make tree
-    Node<T> *newNode(T);
-    void treeInsert(Node<T> *);
+    Node_ *newNode(T);
+    void treeInsert(Node_ *);
     // print ordered
-    void inorder(Node<T> *);
+    void inorder(Node_ *);
     // Search for a key
-    Node<T> *treeSearch(Node<T> *, T);
+    Node_ *treeSearch(Node_ *, T);
     // Min-Max
-    Node<T> *treeMin(Node<T> *);
-    Node<T> *treeMax(Node<T> *);
+    Node_ *treeMin(Node_ *);
+    Node_ *treeMax(Node_ *);
     // Find Successor and Predecessor
-    Node<T> *treeSuccessor(Node<T> *);
-    Node<T> *treePredecessor(Node<T> *);
+    Node_ *treeSuccessor(Node_ *);
+    Node_ *treePredecessor(Node_ *);
     // Delete
-    void transplant(Node<T> *, Node<T> *);
-    void treeDelete(Node<T> *);
+    void transplant(Node_ *, Node_ *);
+    void treeDelete(Node_ *);
 
     
 };
+
 
 #endif // #define BINARY_SEARCH_TREE_

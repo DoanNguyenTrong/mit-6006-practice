@@ -3,10 +3,10 @@
 Hi,
 I have learnt this course for a long time, but over time some parts of the course become shaded in my memory. I decided to reinforce it all by re-implement the course's algorithms.
 
-If you are the one who need to write code at some point in your life and you want to write it confidently, this course is for you. If you need some thing to be convinced how important of this course's knowledge, read this https://reprog.wordpress.com/2010/04/19/are-you-one-of-the-10-percent/.
+If you are the one who need to write code at some point in your life and you want to write it confidently, this course is for you. If you need some thing to be convinced how important of this course's knowledge, read [this](https://reprog.wordpress.com/2010/04/19/are-you-one-of-the-10-percent/).
 
 
-**Note**: all of my code is implemented with closely reference in the texbook **Introduction to Algorithms**. If you don't understand the underlying theory, feel free to take a quick look into the book. For your convenience, I also give some brief explanation here.
+**Note**: all of my code is implemented with closely reference in the texbook **Introduction to Algorithms**. If you want to understand the underlying theory, feel free to take a quick look into the book.
 
 ### Reference
 1. Homepage: https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/index.htm
@@ -37,5 +37,8 @@ If you are the one who need to write code at some point in your life and you wan
     - treeSuccessor()/treePredeccessor()
 
 - AVL tree
+    - inherited from Binary Search Tree (I used `template` so that I dont need to write it all from scratch)
     - Balancing the BST: treeLeftRotate()/treeRightRotate()
+
+## Search
 
